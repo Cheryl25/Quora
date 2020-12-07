@@ -18,6 +18,17 @@ import java.util.List;
 @RestController
 @RequestMapping("/")
 public class AnswerController {
+    
+    /**
+   * Creates answer 
+   *
+   * @param accessToken - User authentication
+   * @param questionId - Question id to which answer is being created
+   * @param answerRequest - creates answer content
+   * @return
+   * @throws AuthorizationFailedException - Invalid Authorization
+   * @throws InvalidQuestionException - Invalid Question
+   */
 
     @Autowired private AnswerService answerService;
 
@@ -32,6 +43,16 @@ public class AnswerController {
         return new ResponseEntity<AnswerResponse>(answerResponse, HttpStatus.CREATED);
     }
 
+    /**
+   * Edits Answers.
+   *
+   * @param accessToken - User authentication
+   * @param answerId - Answer id which is being edited
+   * @param answerEditRequest - New Answer Content
+   * @return
+   * @throws AuthorizationFailedException - Invalid Authorization
+   * @throws AnswerNotFoundException - Invalid answerId
+   */
 
     @RequestMapping(method = RequestMethod.PUT, path = "/answer/edit/{answerId}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<AnswerEditResponse> editAnswer(@RequestHeader("authorization") final String accessToken, @PathVariable("answerId") final String answerId, AnswerEditRequest answerEditRequest) throws AuthorizationFailedException, AnswerNotFoundException {
@@ -42,7 +63,16 @@ public class AnswerController {
         return new ResponseEntity<AnswerEditResponse>(answerEditResponse, HttpStatus.OK);
     }
 
-
+    /**
+   * Deletes Answers
+   *
+   * @param answerId - Answer id to be deleted
+   * @param accessToken - User Authentication
+   * @return 
+   * @throws AuthorizationFailedException - Invalid Authorization
+   * @throws AnswerNotFoundException - Invalid answerId
+   */
+    
     @RequestMapping(method = RequestMethod.DELETE, path = "/answer/delete/{answerId}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<AnswerDeleteResponse> deleteAnswer(@RequestHeader("authorization") final String accessToken, @PathVariable("answerId") String answerId) throws AuthorizationFailedException, AnswerNotFoundException {
         AnswerEntity answerEntity = answerService.deleteAnswer(answerId, accessToken);
@@ -50,6 +80,16 @@ public class AnswerController {
         return new ResponseEntity<AnswerDeleteResponse>(answerDeleteResponse, HttpStatus.OK);
     }
 
+    /**
+   * Display all answers
+   *
+   * @param questionId - Question whose answers are to be displayed
+   * @param accessToken - User Authentication
+   * @return
+   * @throws AuthorizationFailedException Invalid Authorization
+   * @throws InvalidQuestionException - Invalid Question
+   */
+    
     @RequestMapping(method = RequestMethod.GET, path = "/answer/all/{questionId}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<List<AnswerDetailsResponse>> getAllAnswersToQuestion(@RequestHeader("authorization") final String accessToken, @PathVariable("questionId") String questionId) throws AuthorizationFailedException, InvalidQuestionException {
         List<AnswerEntity> answers = answerService.getAllAnswersToQuestion(questionId, accessToken);
