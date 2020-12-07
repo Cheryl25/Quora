@@ -1,5 +1,4 @@
-/*package com.upgrad.quora.api.controller;
-
+package com.upgrad.quora.api.controller;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,8 +19,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 public class AnswerControllerTest {
 
-    @Autowired
-    private MockMvc mvc;
+    @Autowired private MockMvc mvc;
 
 
     //This test case passes when you try to create the answer but the JWT token entered does not exist in the database.
@@ -135,7 +133,4 @@ public class AnswerControllerTest {
                 .andExpect(status().isNotFound())
                 .andExpect(MockMvcResultMatchers.jsonPath("code").value("QUES-001"));
     }
-
-
 }
-*/
