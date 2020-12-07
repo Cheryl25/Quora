@@ -19,10 +19,7 @@ public class UserAuthDao {
      */
     public UserAuthEntity getUserAuthByToken(final String accessToken) {
         try {
-            return entityManager
-                    .createNamedQuery("userAuthByAccessToken", UserAuthEntity.class)
-                    .setParameter("accessToken", accessToken)
-                    .getSingleResult();
+            return entityManager.createNamedQuery("userAuthByAccessToken", UserAuthEntity.class).setParameter("accessToken", accessToken).getSingleResult();
         } catch (NoResultException nre) {
             return null;
         }
