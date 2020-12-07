@@ -51,5 +51,13 @@ public class QuestionDao {
         entityManager.merge(questionEntity);
     }
 
+    /**
+     * Delete the question
+     * @param questionEntity question entity to be deleted.
+     */
+    public void deleteQuestion(QuestionEntity questionEntity) {
+        entityManager.remove(questionEntity);
+    }
+
 
 }
